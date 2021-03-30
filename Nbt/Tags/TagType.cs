@@ -1,5 +1,5 @@
 ﻿namespace Nbt.Tags {
-    public enum TagType {
+    public enum TagType : sbyte {
         Byte = 1,
         Short = 2,
         Int = 3,
