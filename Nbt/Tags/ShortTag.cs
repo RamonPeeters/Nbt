@@ -1,6 +1,6 @@
 ﻿namespace Nbt.Tags {
     public class ShortTag : Tag {
-        private readonly short Data;
+        private short Data;
 
         public ShortTag() : this(0) { }
 
@@ -10,6 +10,10 @@
 
         public override TagType GetTagType() {
             return TagType.Short;
+        }
+
+        internal override void Read(BinaryReader binaryReader) {
+            Data = binaryReader.ReadShort();
         }
     }
 }

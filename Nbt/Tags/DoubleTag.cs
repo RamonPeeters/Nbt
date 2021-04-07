@@ -1,6 +1,6 @@
 ﻿namespace Nbt.Tags {
     public class DoubleTag : Tag {
-        private readonly double Data;
+        private double Data;
 
         public DoubleTag() : this(0.0d) { }
 
@@ -10,6 +10,10 @@
 
         public override TagType GetTagType() {
             return TagType.Double;
+        }
+
+        internal override void Read(BinaryReader binaryReader) {
+            Data = binaryReader.ReadDouble();
         }
     }
 }

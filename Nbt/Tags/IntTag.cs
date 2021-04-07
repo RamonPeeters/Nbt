@@ -1,6 +1,6 @@
 ﻿namespace Nbt.Tags {
     public class IntTag : Tag {
-        private readonly int Data;
+        private int Data;
 
         public IntTag() : this(0) { }
 
@@ -10,6 +10,10 @@
 
         public override TagType GetTagType() {
             return TagType.Int;
+        }
+
+        internal override void Read(BinaryReader binaryReader) {
+            Data = binaryReader.ReadInt();
         }
     }
 }
