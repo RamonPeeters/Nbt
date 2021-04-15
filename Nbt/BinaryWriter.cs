@@ -17,84 +17,84 @@ namespace Nbt {
             GC.SuppressFinalize(this);
         }
 
-        public void Write(sbyte b) {
-            Buffer[0] = (byte)b;
+        public void Write(sbyte value) {
+            Buffer[0] = (byte)value;
             WriteBuffer(1);
         }
 
-        public void Write(byte b) {
-            Buffer[0] = b;
+        public void Write(byte value) {
+            Buffer[0] = value;
             WriteBuffer(1);
         }
 
-        public void Write(short s) {
-            Buffer[0] = (byte)(s >> 8 & 0xFF);
-            Buffer[1] = (byte)(s & 0xFF);
+        public void Write(short value) {
+            Buffer[0] = (byte)(value >> 8 & 0xFF);
+            Buffer[1] = (byte)(value & 0xFF);
             WriteBuffer(2);
         }
 
-        public void Write(ushort s) {
-            Buffer[0] = (byte)(s >> 8 & 0xFF);
-            Buffer[1] = (byte)(s & 0xFF);
+        public void Write(ushort value) {
+            Buffer[0] = (byte)(value >> 8 & 0xFF);
+            Buffer[1] = (byte)(value & 0xFF);
             WriteBuffer(2);
         }
 
-        public void Write(int i) {
-            Buffer[0] = (byte)(i >> 24 & 0xFF);
-            Buffer[1] = (byte)(i >> 16 & 0xFF);
-            Buffer[2] = (byte)(i >> 8 & 0xFF);
-            Buffer[3] = (byte)(i & 0xFF);
+        public void Write(int value) {
+            Buffer[0] = (byte)(value >> 24 & 0xFF);
+            Buffer[1] = (byte)(value >> 16 & 0xFF);
+            Buffer[2] = (byte)(value >> 8 & 0xFF);
+            Buffer[3] = (byte)(value & 0xFF);
             WriteBuffer(4);
         }
 
-        public void Write(uint i) {
-            Buffer[0] = (byte)(i >> 24 & 0xFF);
-            Buffer[1] = (byte)(i >> 16 & 0xFF);
-            Buffer[2] = (byte)(i >> 8 & 0xFF);
-            Buffer[3] = (byte)(i & 0xFF);
+        public void Write(uint value) {
+            Buffer[0] = (byte)(value >> 24 & 0xFF);
+            Buffer[1] = (byte)(value >> 16 & 0xFF);
+            Buffer[2] = (byte)(value >> 8 & 0xFF);
+            Buffer[3] = (byte)(value & 0xFF);
             WriteBuffer(4);
         }
 
-        public void Write(long l) {
-            Buffer[0] = (byte)(l >> 56 & 0xFF);
-            Buffer[1] = (byte)(l >> 48 & 0xFF);
-            Buffer[2] = (byte)(l >> 40 & 0xFF);
-            Buffer[3] = (byte)(l >> 32 & 0xFF);
-            Buffer[4] = (byte)(l >> 24 & 0xFF);
-            Buffer[5] = (byte)(l >> 16 & 0xFF);
-            Buffer[6] = (byte)(l >> 8 & 0xFF);
-            Buffer[7] = (byte)(l & 0xFF);
+        public void Write(long value) {
+            Buffer[0] = (byte)(value >> 56 & 0xFF);
+            Buffer[1] = (byte)(value >> 48 & 0xFF);
+            Buffer[2] = (byte)(value >> 40 & 0xFF);
+            Buffer[3] = (byte)(value >> 32 & 0xFF);
+            Buffer[4] = (byte)(value >> 24 & 0xFF);
+            Buffer[5] = (byte)(value >> 16 & 0xFF);
+            Buffer[6] = (byte)(value >> 8 & 0xFF);
+            Buffer[7] = (byte)(value & 0xFF);
             WriteBuffer(8);
         }
 
-        public void Write(ulong l) {
-            Buffer[0] = (byte)(l >> 56 & 0xFF);
-            Buffer[1] = (byte)(l >> 48 & 0xFF);
-            Buffer[2] = (byte)(l >> 40 & 0xFF);
-            Buffer[3] = (byte)(l >> 32 & 0xFF);
-            Buffer[4] = (byte)(l >> 24 & 0xFF);
-            Buffer[5] = (byte)(l >> 16 & 0xFF);
-            Buffer[6] = (byte)(l >> 8 & 0xFF);
-            Buffer[7] = (byte)(l & 0xFF);
+        public void Write(ulong value) {
+            Buffer[0] = (byte)(value >> 56 & 0xFF);
+            Buffer[1] = (byte)(value >> 48 & 0xFF);
+            Buffer[2] = (byte)(value >> 40 & 0xFF);
+            Buffer[3] = (byte)(value >> 32 & 0xFF);
+            Buffer[4] = (byte)(value >> 24 & 0xFF);
+            Buffer[5] = (byte)(value >> 16 & 0xFF);
+            Buffer[6] = (byte)(value >> 8 & 0xFF);
+            Buffer[7] = (byte)(value & 0xFF);
             WriteBuffer(8);
         }
 
-        public unsafe void Write(float f) {
-            int i = *(int*)&f;
+        public unsafe void Write(float value) {
+            int i = *(int*)&value;
             Write(i);
         }
 
-        public unsafe void Write(double d) {
-            long l = *(long*)&d;
+        public unsafe void Write(double value) {
+            long l = *(long*)&value;
             Write(l);
         }
 
-        public void Write(TagType tagType) {
-            Write((sbyte)tagType);
+        public void Write(TagType value) {
+            Write((sbyte)value);
         }
 
-        public void Write(string s) {
-            byte[] bytes = Encoding.UTF8.GetBytes(s);
+        public void Write(string value) {
+            byte[] bytes = Encoding.UTF8.GetBytes(value);
             if (bytes.Length > ushort.MaxValue) {
                 throw new InvalidOperationException("The number of bytes in the string was larger than the maximum (65535)");
             }
