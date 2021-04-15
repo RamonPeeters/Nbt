@@ -15,5 +15,9 @@
         internal override void Read(BinaryReader binaryReader) {
             Data = binaryReader.ReadDouble();
         }
+
+        internal override void Write(BinaryWriter binaryWriter) {
+            binaryWriter.Write(Data);
+        }
     }
 }
