@@ -170,5 +170,13 @@ namespace Nbt.Tests {
 
             Assert.ThrowsException<InvalidOperationException>(() => binaryWriter.Write(value));
         }
+
+        [TestMethod]
+        public void BinaryWriter_WriteStringShouldThrowException_BecauseStringIsNull() {
+            using MemoryStream memoryStream = new MemoryStream();
+            using BinaryWriter binaryWriter = new BinaryWriter(memoryStream);
+
+            Assert.ThrowsException<ArgumentNullException>(() => binaryWriter.Write(null));
+        }
     }
 }

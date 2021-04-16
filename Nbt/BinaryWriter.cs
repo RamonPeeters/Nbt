@@ -82,6 +82,10 @@ namespace Nbt {
         }
 
         public void Write(string value) {
+            if (value == null) {
+                throw new ArgumentNullException(nameof(value));
+            }
+
             byte[] bytes = Encoding.UTF8.GetBytes(value);
             if (bytes.Length > ushort.MaxValue) {
                 throw new InvalidOperationException("The number of bytes in the string was larger than the maximum (65535)");
