@@ -40,42 +40,30 @@ namespace Nbt {
         }
 
         public void Write(int value) {
-            Buffer[0] = (byte)(value >> 24 & 0xFF);
-            Buffer[1] = (byte)(value >> 16 & 0xFF);
-            Buffer[2] = (byte)(value >> 8 & 0xFF);
-            Buffer[3] = (byte)(value & 0xFF);
+            for (int i = 0; i < 4; i++) {
+                Buffer[i] = (byte)(value >> ((3 - i) * 8) & 0xFF);
+            }
             WriteBuffer(4);
         }
 
         public void Write(uint value) {
-            Buffer[0] = (byte)(value >> 24 & 0xFF);
-            Buffer[1] = (byte)(value >> 16 & 0xFF);
-            Buffer[2] = (byte)(value >> 8 & 0xFF);
-            Buffer[3] = (byte)(value & 0xFF);
+            for (int i = 0; i < 4; i++) {
+                Buffer[i] = (byte)(value >> ((3 - i) * 8) & 0xFF);
+            }
             WriteBuffer(4);
         }
 
         public void Write(long value) {
-            Buffer[0] = (byte)(value >> 56 & 0xFF);
-            Buffer[1] = (byte)(value >> 48 & 0xFF);
-            Buffer[2] = (byte)(value >> 40 & 0xFF);
-            Buffer[3] = (byte)(value >> 32 & 0xFF);
-            Buffer[4] = (byte)(value >> 24 & 0xFF);
-            Buffer[5] = (byte)(value >> 16 & 0xFF);
-            Buffer[6] = (byte)(value >> 8 & 0xFF);
-            Buffer[7] = (byte)(value & 0xFF);
+            for (int i = 0; i < 8; i++) {
+                Buffer[i] = (byte)(value >> ((7 - i) * 8) & 0xFF);
+            }
             WriteBuffer(8);
         }
 
         public void Write(ulong value) {
-            Buffer[0] = (byte)(value >> 56 & 0xFF);
-            Buffer[1] = (byte)(value >> 48 & 0xFF);
-            Buffer[2] = (byte)(value >> 40 & 0xFF);
-            Buffer[3] = (byte)(value >> 32 & 0xFF);
-            Buffer[4] = (byte)(value >> 24 & 0xFF);
-            Buffer[5] = (byte)(value >> 16 & 0xFF);
-            Buffer[6] = (byte)(value >> 8 & 0xFF);
-            Buffer[7] = (byte)(value & 0xFF);
+            for (int i = 0; i < 8; i++) {
+                Buffer[i] = (byte)(value >> ((7 - i) * 8) & 0xFF);
+            }
             WriteBuffer(8);
         }
 
