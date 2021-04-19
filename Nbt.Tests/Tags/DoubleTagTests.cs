@@ -22,5 +22,16 @@ namespace Nbt.Tests.Tags {
             tag.Read(binaryReader);
             Assert.AreEqual(-1.5d, tag.Data);
         }
+
+        [TestMethod]
+        public void DoubleTag_WritesCorrectValue() {
+            DoubleTag tag = new DoubleTag(-1.5d);
+            using MemoryStream memoryStream = new MemoryStream();
+            using BinaryWriter binaryWriter = new BinaryWriter(memoryStream);
+
+            tag.Write(binaryWriter);
+            byte[] data = memoryStream.ToArray();
+            CollectionAssert.AreEqual(new byte[] { 0xBF, 0xF8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }, data);
+        }
     }
 }

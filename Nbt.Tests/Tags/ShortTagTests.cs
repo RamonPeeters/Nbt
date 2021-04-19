@@ -22,5 +22,16 @@ namespace Nbt.Tests.Tags {
             tag.Read(binaryReader);
             Assert.AreEqual((short)-32768, tag.Data);
         }
+
+        [TestMethod]
+        public void ShortTag_WritesCorrectValue() {
+            ShortTag tag = new ShortTag(-32768);
+            using MemoryStream memoryStream = new MemoryStream();
+            using BinaryWriter binaryWriter = new BinaryWriter(memoryStream);
+
+            tag.Write(binaryWriter);
+            byte[] data = memoryStream.ToArray();
+            CollectionAssert.AreEqual(new byte[] { 0x80, 0x00 }, data);
+        }
     }
 }

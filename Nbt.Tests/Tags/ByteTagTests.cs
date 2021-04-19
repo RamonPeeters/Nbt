@@ -22,5 +22,16 @@ namespace Nbt.Tests.Tags {
             tag.Read(binaryReader);
             Assert.AreEqual((sbyte)-128, tag.Data);
         }
+
+        [TestMethod]
+        public void ByteTag_WritesCorrectValue() {
+            ByteTag tag = new ByteTag(-128);
+            using MemoryStream memoryStream = new MemoryStream();
+            using BinaryWriter binaryWriter = new BinaryWriter(memoryStream);
+
+            tag.Write(binaryWriter);
+            byte[] data = memoryStream.ToArray();
+            CollectionAssert.AreEqual(new byte[] { 0x80 }, data);
+        }
     }
 }

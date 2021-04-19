@@ -22,5 +22,16 @@ namespace Nbt.Tests.Tags {
             tag.Read(binaryReader);
             Assert.AreEqual("foo", tag.Data);
         }
+
+        [TestMethod]
+        public void StringTag_WritesCorrectValue() {
+            StringTag tag = new StringTag("foo");
+            using MemoryStream memoryStream = new MemoryStream();
+            using BinaryWriter binaryWriter = new BinaryWriter(memoryStream);
+
+            tag.Write(binaryWriter);
+            byte[] data = memoryStream.ToArray();
+            CollectionAssert.AreEqual(new byte[] { 0x00, 0x03, 0x66, 0x6F, 0x6F }, data);
+        }
     }
 }

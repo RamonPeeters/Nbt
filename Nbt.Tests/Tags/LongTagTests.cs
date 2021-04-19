@@ -22,5 +22,16 @@ namespace Nbt.Tests.Tags {
             tag.Read(binaryReader);
             Assert.AreEqual(-9223372036854775808L, tag.Data);
         }
+
+        [TestMethod]
+        public void LongTag_WritesCorrectValue() {
+            LongTag tag = new LongTag(-9223372036854775808L);
+            using MemoryStream memoryStream = new MemoryStream();
+            using BinaryWriter binaryWriter = new BinaryWriter(memoryStream);
+
+            tag.Write(binaryWriter);
+            byte[] data = memoryStream.ToArray();
+            CollectionAssert.AreEqual(new byte[] { 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }, data);
+        }
     }
 }
