@@ -1,6 +1,6 @@
 ﻿namespace Nbt.Tags {
     public class StringTag : Tag {
-        private string Data;
+        public string Data { get; private set; }
 
         public StringTag() : this("") {}
 

@@ -1,6 +1,6 @@
 ﻿namespace Nbt.Tags {
     public class DoubleTag : Tag {
-        private double Data;
+        public double Data { get; private set; }
 
         public DoubleTag() : this(0.0d) { }
 

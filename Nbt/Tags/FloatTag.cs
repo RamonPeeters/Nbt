@@ -1,6 +1,6 @@
 ﻿namespace Nbt.Tags {
     public class FloatTag : Tag {
-        private float Data;
+        public float Data { get; private set; }
 
         public FloatTag() : this(0.0f) { }
 

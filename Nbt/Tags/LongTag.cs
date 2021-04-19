@@ -1,6 +1,6 @@
 ﻿namespace Nbt.Tags {
     public class LongTag : Tag {
-        private long Data;
+        public long Data { get; private set; }
 
         public LongTag() : this(0L) { }
 

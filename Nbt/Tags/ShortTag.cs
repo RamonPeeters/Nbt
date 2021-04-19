@@ -1,6 +1,6 @@
 ﻿namespace Nbt.Tags {
     public class ShortTag : Tag {
-        private short Data;
+        public short Data { get; private set; }
 
         public ShortTag() : this(0) { }
 

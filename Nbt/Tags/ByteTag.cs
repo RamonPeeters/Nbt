@@ -1,6 +1,6 @@
 ﻿namespace Nbt.Tags {
     public class ByteTag : Tag {
-        private sbyte Data;
+        public sbyte Data { get; private set; }
 
         public ByteTag() : this(0) { }
 
