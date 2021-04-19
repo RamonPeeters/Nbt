@@ -23,8 +23,7 @@ namespace Nbt {
         }
 
         public byte ReadUnsignedByte() {
-            FillBuffer(1);
-            return Buffer[0];
+            return (byte)ReadByte();
         }
 
         public short ReadShort() {
@@ -33,8 +32,7 @@ namespace Nbt {
         }
 
         public ushort ReadUnsignedShort() {
-            FillBuffer(2);
-            return (ushort)(Buffer[0] << 8 | Buffer[1]);
+            return (ushort)ReadShort();
         }
 
         public int ReadInt() {
@@ -43,8 +41,7 @@ namespace Nbt {
         }
 
         public uint ReadUnsignedInt() {
-            FillBuffer(4);
-            return (uint)(Buffer[0] << 24 | Buffer[1] << 16 | Buffer[2] << 8 | Buffer[3]);
+            return (uint)ReadInt();
         }
 
         public long ReadLong() {
@@ -55,10 +52,7 @@ namespace Nbt {
         }
 
         public ulong ReadUnsignedLong() {
-            FillBuffer(8);
-            uint upper = (uint)(Buffer[0] << 24 | Buffer[1] << 16 | Buffer[2] << 8 | Buffer[3]);
-            uint lower = (uint)(Buffer[4] << 24 | Buffer[5] << 16 | Buffer[6] << 8 | Buffer[7]);
-            return (ulong)upper << 32 | lower;
+            return (ulong)ReadLong();
         }
 
         public unsafe float ReadFloat() {

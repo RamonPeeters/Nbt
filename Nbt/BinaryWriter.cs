@@ -23,8 +23,7 @@ namespace Nbt {
         }
 
         public void Write(byte value) {
-            Buffer[0] = value;
-            WriteBuffer(1);
+            Write((sbyte)value);
         }
 
         public void Write(short value) {
@@ -34,9 +33,7 @@ namespace Nbt {
         }
 
         public void Write(ushort value) {
-            Buffer[0] = (byte)(value >> 8 & 0xFF);
-            Buffer[1] = (byte)(value & 0xFF);
-            WriteBuffer(2);
+            Write((short)value);
         }
 
         public void Write(int value) {
@@ -47,10 +44,7 @@ namespace Nbt {
         }
 
         public void Write(uint value) {
-            for (int i = 0; i < 4; i++) {
-                Buffer[i] = (byte)(value >> ((3 - i) * 8) & 0xFF);
-            }
-            WriteBuffer(4);
+            Write((int)value);
         }
 
         public void Write(long value) {
@@ -61,10 +55,7 @@ namespace Nbt {
         }
 
         public void Write(ulong value) {
-            for (int i = 0; i < 8; i++) {
-                Buffer[i] = (byte)(value >> ((7 - i) * 8) & 0xFF);
-            }
-            WriteBuffer(8);
+            Write((long)value);
         }
 
         public unsafe void Write(float value) {
