@@ -6,6 +6,7 @@
         Long = 4,
         Float = 5,
         Double = 6,
+        ByteArray = 7,
         String = 8
     }
 }
