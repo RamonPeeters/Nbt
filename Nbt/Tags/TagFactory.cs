@@ -9,6 +9,9 @@
                 TagType.Float => new FloatTag(),
                 TagType.Double => new DoubleTag(),
                 TagType.String => new StringTag(),
+                TagType.ByteArray => new ByteArrayTag(),
+                TagType.IntArray => new IntArrayTag(),
+                TagType.LongArray => new LongArrayTag(),
                 _ => throw new InvalidTagTypeException(tagType)
             };
         }
