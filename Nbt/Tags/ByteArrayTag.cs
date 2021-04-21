@@ -1,10 +1,10 @@
 ﻿using System;
 
 namespace Nbt.Tags {
-    public class ByteArrayTag : Tag {
+    public class ByteArrayTag : CollectionTag {
         private sbyte[] Data;
 
-        public int Count { get { return Data.Length; } }
+        public override int Count { get { return Data.Length; } }
 
         public ByteArrayTag() : this(Array.Empty<sbyte>()) {}
 
