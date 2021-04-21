@@ -7,6 +7,8 @@
         Float = 5,
         Double = 6,
         ByteArray = 7,
-        String = 8
+        String = 8,
+        IntArray = 11,
+        LongArray = 12
     }
 }
