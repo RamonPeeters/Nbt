@@ -1,5 +1,6 @@
 ﻿namespace Nbt.Tags {
     public enum TagType : sbyte {
+        End = 0,
         Byte = 1,
         Short = 2,
         Int = 3,
@@ -8,6 +9,7 @@
         Double = 6,
         ByteArray = 7,
         String = 8,
+        List = 9,
         IntArray = 11,
         LongArray = 12
     }

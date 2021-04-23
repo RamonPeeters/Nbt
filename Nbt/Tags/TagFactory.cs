@@ -12,6 +12,7 @@
                 TagType.ByteArray => new ByteArrayTag(),
                 TagType.IntArray => new IntArrayTag(),
                 TagType.LongArray => new LongArrayTag(),
+                TagType.List => new ListTag(),
                 _ => throw new InvalidTagTypeException(tagType)
             };
         }
