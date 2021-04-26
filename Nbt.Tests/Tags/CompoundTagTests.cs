@@ -29,7 +29,7 @@ namespace Nbt.Tests.Tags {
             Dictionary<string, Tag> tags = new Dictionary<string, Tag>() { { "foo", new ByteTag(127) }, { "bar", new ByteTag(-128) } };
             CompoundTag tag = new CompoundTag(tags);
             using MemoryStream memoryStream = new MemoryStream();
-            using BinaryWriter binaryWriter = new BinaryWriter(memoryStream);
+            using BinaryWriter binaryWriter = new BinaryWriter(memoryStream, true);
 
             tag.Write(binaryWriter);
             byte[] data = memoryStream.ToArray();

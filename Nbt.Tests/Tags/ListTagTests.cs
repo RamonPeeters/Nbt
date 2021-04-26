@@ -28,7 +28,7 @@ namespace Nbt.Tests.Tags {
             ListTag tag = new ListTag();
             tag.Add(new ByteTag(127));
             using MemoryStream memoryStream = new MemoryStream();
-            using BinaryWriter binaryWriter = new BinaryWriter(memoryStream);
+            using BinaryWriter binaryWriter = new BinaryWriter(memoryStream, true);
 
             tag.Write(binaryWriter);
             byte[] data = memoryStream.ToArray();

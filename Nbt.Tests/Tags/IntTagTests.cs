@@ -27,7 +27,7 @@ namespace Nbt.Tests.Tags {
         public void IntTag_WritesCorrectValue() {
             IntTag tag = new IntTag(-2147483648);
             using MemoryStream memoryStream = new MemoryStream();
-            using BinaryWriter binaryWriter = new BinaryWriter(memoryStream);
+            using BinaryWriter binaryWriter = new BinaryWriter(memoryStream, true);
 
             tag.Write(binaryWriter);
             byte[] data = memoryStream.ToArray();

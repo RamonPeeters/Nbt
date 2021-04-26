@@ -27,7 +27,7 @@ namespace Nbt.Tests.Tags {
         public void LongArrayTag_WritesCorrectValue() {
             LongArrayTag tag = new LongArrayTag(new long[] { 0, 9223372036854775807, -9223372036854775808, -1 });
             using MemoryStream memoryStream = new MemoryStream();
-            using BinaryWriter binaryWriter = new BinaryWriter(memoryStream);
+            using BinaryWriter binaryWriter = new BinaryWriter(memoryStream, true);
 
             tag.Write(binaryWriter);
             byte[] data = memoryStream.ToArray();

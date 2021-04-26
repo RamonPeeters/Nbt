@@ -27,7 +27,7 @@ namespace Nbt.Tests.Tags {
         public void ShortTag_WritesCorrectValue() {
             ShortTag tag = new ShortTag(-32768);
             using MemoryStream memoryStream = new MemoryStream();
-            using BinaryWriter binaryWriter = new BinaryWriter(memoryStream);
+            using BinaryWriter binaryWriter = new BinaryWriter(memoryStream, true);
 
             tag.Write(binaryWriter);
             byte[] data = memoryStream.ToArray();
