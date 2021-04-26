@@ -13,6 +13,7 @@
                 TagType.IntArray => new IntArrayTag(),
                 TagType.LongArray => new LongArrayTag(),
                 TagType.List => new ListTag(),
+                TagType.Compound => new CompoundTag(),
                 _ => throw new InvalidTagTypeException(tagType)
             };
         }

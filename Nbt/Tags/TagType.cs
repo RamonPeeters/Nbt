@@ -10,6 +10,7 @@
         ByteArray = 7,
         String = 8,
         List = 9,
+        Compound = 10,
         IntArray = 11,
         LongArray = 12
     }
