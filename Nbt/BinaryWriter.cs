@@ -6,11 +6,15 @@ using System.Text;
 namespace Nbt {
     class BinaryWriter : IDisposable {
         private readonly Stream Stream;
+        private readonly bool BigEndian;
         private readonly byte[] Buffer = new byte[sizeof(long)];
 
-        public BinaryWriter(Stream stream) {
+        public BinaryWriter(Stream stream, bool bigEndian) {
             Stream = stream;
+            BigEndian = bigEndian;
         }
+
+        public BinaryWriter(Stream stream) : this(stream, true) {}
 
         public void Dispose() {
             Dispose(true);
@@ -27,8 +31,13 @@ namespace Nbt {
         }
 
         public void Write(short value) {
-            Buffer[0] = (byte)(value >> 8 & 0xFF);
-            Buffer[1] = (byte)(value & 0xFF);
+            if (BigEndian) {
+                Buffer[0] = (byte)(value >> 8 & 0xFF);
+                Buffer[1] = (byte)(value & 0xFF);
+            } else {
+                Buffer[1] = (byte)(value >> 8 & 0xFF);
+                Buffer[0] = (byte)(value & 0xFF);
+            }
             WriteBuffer(2);
         }
 
@@ -37,8 +46,14 @@ namespace Nbt {
         }
 
         public void Write(int value) {
-            for (int i = 0; i < 4; i++) {
-                Buffer[i] = (byte)(value >> ((3 - i) * 8) & 0xFF);
+            if (BigEndian) {
+                for (int i = 0; i < 4; i++) {
+                    Buffer[i] = (byte)(value >> ((3 - i) * 8) & 0xFF);
+                }
+            } else {
+                for (int i = 0; i < 4; i++) {
+                    Buffer[i] = (byte)(value >> (i * 8) & 0xFF);
+                }
             }
             WriteBuffer(4);
         }
@@ -48,8 +63,14 @@ namespace Nbt {
         }
 
         public void Write(long value) {
-            for (int i = 0; i < 8; i++) {
-                Buffer[i] = (byte)(value >> ((7 - i) * 8) & 0xFF);
+            if (BigEndian) {
+                for (int i = 0; i < 8; i++) {
+                    Buffer[i] = (byte)(value >> ((7 - i) * 8) & 0xFF);
+                }
+            } else {
+                for (int i = 0; i < 8; i++) {
+                    Buffer[i] = (byte)(value >> (i * 8) & 0xFF);
+                }
             }
             WriteBuffer(8);
         }
