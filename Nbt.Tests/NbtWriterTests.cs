@@ -9,7 +9,7 @@ namespace Nbt.Tests {
         public void NbtWriter_WritesCorrectly() {
             NbtRoot nbtRoot = new NbtRoot("foo", new ByteTag(127));
             using MemoryStream memoryStream = new MemoryStream();
-            using NbtWriter nbtWriter = new NbtWriter(memoryStream);
+            using NbtWriter nbtWriter = new NbtWriter(memoryStream, true);
 
             nbtWriter.Write(nbtRoot);
             byte[] data = memoryStream.ToArray();
