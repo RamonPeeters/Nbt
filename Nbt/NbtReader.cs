@@ -5,10 +5,14 @@ using System.IO;
 namespace Nbt {
     public class NbtReader : IDisposable {
         private readonly Stream Stream;
+        private readonly bool BigEndian;
 
-        public NbtReader(Stream stream) {
+        public NbtReader(Stream stream, bool bigEndian) {
             Stream = stream;
+            BigEndian = bigEndian;
         }
+
+        public NbtReader(Stream stream) : this(stream, true) {}
 
         public void Dispose() {
             Dispose(true);
@@ -16,7 +20,7 @@ namespace Nbt {
         }
 
         public NbtRoot Read() {
-            using BinaryReader binaryReader = new BinaryReader(Stream);
+            using BinaryReader binaryReader = new BinaryReader(Stream, BigEndian);
             TagType tagType = binaryReader.ReadTagType();
             string rootName = binaryReader.ReadString();
             Tag data = TagFactory.GetEmptyTag(tagType);
