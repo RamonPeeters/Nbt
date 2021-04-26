@@ -17,7 +17,7 @@ namespace Nbt.Tests.Tags {
             IntTag tag = new IntTag();
             byte[] data = new byte[] { 0x80, 0x00, 0x00, 0x00 };
             using MemoryStream memoryStream = new MemoryStream(data);
-            using BinaryReader binaryReader = new BinaryReader(memoryStream);
+            using BinaryReader binaryReader = new BinaryReader(memoryStream, true);
 
             tag.Read(binaryReader);
             Assert.AreEqual(-2147483648, tag.Data);

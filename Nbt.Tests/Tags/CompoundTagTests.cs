@@ -18,7 +18,7 @@ namespace Nbt.Tests.Tags {
             CompoundTag tag = new CompoundTag();
             byte[] data = new byte[] { 0x01, 0x00, 0x03, 0x66, 0x6F, 0x6F, 0x7F, 0x01, 0x00, 0x03, 0x62, 0x61, 0x72, 0x80, 0x00 };
             using MemoryStream memoryStream = new MemoryStream(data);
-            using BinaryReader binaryReader = new BinaryReader(memoryStream);
+            using BinaryReader binaryReader = new BinaryReader(memoryStream, true);
 
             tag.Read(binaryReader);
             Assert.AreEqual(2, tag.Count);

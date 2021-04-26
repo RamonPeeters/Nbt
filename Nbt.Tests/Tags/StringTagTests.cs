@@ -17,7 +17,7 @@ namespace Nbt.Tests.Tags {
             StringTag tag = new StringTag();
             byte[] data = new byte[] { 0x00, 0x03, 0x66, 0x6F, 0x6F };
             using MemoryStream memoryStream = new MemoryStream(data);
-            using BinaryReader binaryReader = new BinaryReader(memoryStream);
+            using BinaryReader binaryReader = new BinaryReader(memoryStream, true);
 
             tag.Read(binaryReader);
             Assert.AreEqual("foo", tag.Data);

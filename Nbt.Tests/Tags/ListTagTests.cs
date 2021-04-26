@@ -17,7 +17,7 @@ namespace Nbt.Tests.Tags {
             ListTag tag = new ListTag();
             byte[] data = new byte[] { 0x01, 0x00, 0x00, 0x00, 0x01, 0x7F };
             using MemoryStream memoryStream = new MemoryStream(data);
-            using BinaryReader binaryReader = new BinaryReader(memoryStream);
+            using BinaryReader binaryReader = new BinaryReader(memoryStream, true);
 
             tag.Read(binaryReader);
             Assert.AreEqual(1, tag.Count);

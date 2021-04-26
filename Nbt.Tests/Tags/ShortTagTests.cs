@@ -17,7 +17,7 @@ namespace Nbt.Tests.Tags {
             ShortTag tag = new ShortTag();
             byte[] data = new byte[] { 0x80, 0x00 };
             using MemoryStream memoryStream = new MemoryStream(data);
-            using BinaryReader binaryReader = new BinaryReader(memoryStream);
+            using BinaryReader binaryReader = new BinaryReader(memoryStream, true);
 
             tag.Read(binaryReader);
             Assert.AreEqual((short)-32768, tag.Data);
