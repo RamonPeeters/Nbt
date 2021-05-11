@@ -1,16 +1,27 @@
 ﻿using Nbt.Tags;
 using System;
 using System.IO;
+using System.IO.Compression;
 
 namespace Nbt {
     public class NbtReader : IDisposable {
         private readonly Stream Stream;
+        private readonly NbtCompression Compression;
         private readonly bool BigEndian;
 
-        public NbtReader(Stream stream, bool bigEndian) {
+        public NbtReader(Stream stream, NbtCompression compression, bool bigEndian) {
             Stream = stream;
             BigEndian = bigEndian;
+
+            Compression = compression;
+            Stream = Compression switch {
+                NbtCompression.GZip => new GZipStream(Stream, CompressionMode.Decompress, true),
+                NbtCompression.ZLib => new ZLibStream(Stream, CompressionMode.Decompress, true),
+                _ => stream
+            };
         }
+
+        public NbtReader(Stream stream, bool bigEndian) : this(stream, NbtCompression.None, bigEndian) { }
 
         public NbtReader(Stream stream) : this(stream, true) {}
 
