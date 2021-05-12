@@ -9,14 +9,14 @@ namespace Nbt {
         private readonly NbtCompression Compression;
         private readonly bool BigEndian;
 
-        public NbtReader(Stream stream, NbtCompression compression, bool bigEndian) {
+        public NbtReader(Stream stream, bool bigEndian, NbtCompression compression) {
             Stream = stream;
             BigEndian = bigEndian;
 
             Compression = compression;
         }
 
-        public NbtReader(Stream stream, bool bigEndian) : this(stream, NbtCompression.None, bigEndian) { }
+        public NbtReader(Stream stream, bool bigEndian) : this(stream, bigEndian, NbtCompression.None) { }
 
         public NbtReader(Stream stream) : this(stream, true) {}
 

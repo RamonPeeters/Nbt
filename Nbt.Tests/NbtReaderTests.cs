@@ -9,7 +9,7 @@ namespace Nbt.Tests {
         public void NbtReader_ReadsCorrectRootName() {
             byte[] data = new byte[] { 0x01, 0x00, 0x03, 0x66, 0x6F, 0x6F, 0x00 };
             using MemoryStream memoryStream = new MemoryStream(data);
-            using NbtReader nbtReader = new NbtReader(memoryStream, true);
+            using NbtReader nbtReader = new NbtReader(memoryStream, true, NbtCompression.None);
 
             NbtRoot root = nbtReader.Read();
             string rootName = root.RootName;
@@ -20,7 +20,7 @@ namespace Nbt.Tests {
         public void NbtReader_ReadsCorrectTag() {
             byte[] data = new byte[] { 0x01, 0x00, 0x00, 0x7F };
             using MemoryStream memoryStream = new MemoryStream(data);
-            using NbtReader nbtReader = new NbtReader(memoryStream, true);
+            using NbtReader nbtReader = new NbtReader(memoryStream, true, NbtCompression.None);
 
             NbtRoot root = nbtReader.Read();
             Tag tag = root.Data;
@@ -31,7 +31,7 @@ namespace Nbt.Tests {
         public void NbtReader_ReadingRootTagShouldThrowException_BecauseTagTypeIsInvalid() {
             byte[] data = new byte[] { 0xFF, 0x00, 0x00, 0x7F };
             using MemoryStream memoryStream = new MemoryStream(data);
-            using NbtReader nbtReader = new NbtReader(memoryStream, true);
+            using NbtReader nbtReader = new NbtReader(memoryStream, true, NbtCompression.None);
             Assert.ThrowsException<InvalidTagTypeException>(nbtReader.Read);
         }
 
@@ -39,7 +39,7 @@ namespace Nbt.Tests {
         public void NbtReader_ReadsCorrectRootName_WithGZipCompression() {
             byte[] data = new byte[] { 0x1F, 0x8B, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0A, 0x62, 0x64, 0x60, 0x4E, 0xCB, 0xCF, 0x67, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0x03, 0x00, 0xB0, 0xFD, 0x18, 0xC3, 0x07, 0x00, 0x00, 0x00 };
             using MemoryStream memoryStream = new MemoryStream(data);
-            using NbtReader nbtReader = new NbtReader(memoryStream, NbtCompression.GZip, true);
+            using NbtReader nbtReader = new NbtReader(memoryStream, true, NbtCompression.GZip);
 
             NbtRoot root = nbtReader.Read();
             string rootName = root.RootName;
@@ -50,7 +50,7 @@ namespace Nbt.Tests {
         public void NbtReader_ReadsCorrectRootName_WithZLibCompression() {
             byte[] data = new byte[] { 0x78, 0x9C, 0x62, 0x64, 0x60, 0x4E, 0xCB, 0xCF, 0x67, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0x03, 0x00, 0x03, 0xE0, 0x01, 0x49 };
             using MemoryStream memoryStream = new MemoryStream(data);
-            using NbtReader nbtReader = new NbtReader(memoryStream, NbtCompression.ZLib, true);
+            using NbtReader nbtReader = new NbtReader(memoryStream, true, NbtCompression.ZLib);
 
             NbtRoot root = nbtReader.Read();
             string rootName = root.RootName;
