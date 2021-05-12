@@ -56,5 +56,16 @@ namespace Nbt.Tests {
             string rootName = root.RootName;
             Assert.AreEqual("foo", rootName);
         }
+
+        [TestMethod]
+        public void NbtReader_ReadsCorrectRootName_WithCompressionAutoDetection() {
+            byte[] data = new byte[] { 0x1F, 0x8B, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0A, 0x62, 0x64, 0x60, 0x4E, 0xCB, 0xCF, 0x67, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0x03, 0x00, 0xB0, 0xFD, 0x18, 0xC3, 0x07, 0x00, 0x00, 0x00 };
+            using MemoryStream memoryStream = new MemoryStream(data);
+            using NbtReader nbtReader = new NbtReader(memoryStream, true, NbtCompression.AutoDetect);
+
+            NbtRoot root = nbtReader.Read();
+            string rootName = root.RootName;
+            Assert.AreEqual("foo", rootName);
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace Nbt {
             Stream = stream;
             BigEndian = bigEndian;
 
-            Compression = compression;
+            Compression = compression != NbtCompression.AutoDetect ? compression : DetectCompression();
         }
 
         public NbtReader(Stream stream, bool bigEndian) : this(stream, bigEndian, NbtCompression.None) { }
@@ -43,6 +43,18 @@ namespace Nbt {
             if (disposing) {
                 Stream.Dispose();
             }
+        }
+
+        private NbtCompression DetectCompression() {
+            int firstByte = Stream.ReadByte();
+            NbtCompression compression = firstByte switch {
+                -1 => throw new EndOfStreamException(),
+                0x1F => NbtCompression.GZip,
+                0x78 => NbtCompression.ZLib,
+                _ => NbtCompression.None
+            };
+            Stream.Seek(-1, SeekOrigin.Current);
+            return compression;
         }
     }
 }

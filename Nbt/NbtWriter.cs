@@ -13,6 +13,10 @@ namespace Nbt {
         public NbtWriter(Stream stream, bool bigEndian, NbtCompression compression) {
             Stream = stream;
             BigEndian = bigEndian;
+
+            if (!Enum.IsDefined(compression) || compression == NbtCompression.AutoDetect) {
+                throw new ArgumentOutOfRangeException(nameof(compression));
+            }
             Compression = compression;
         }
 

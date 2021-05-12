@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nbt.Tags;
+using System;
 using System.IO;
 
 namespace Nbt.Tests {
@@ -39,6 +40,12 @@ namespace Nbt.Tests {
             byte[] data = memoryStream.ToArray();
 
             CollectionAssert.AreEqual(new byte[] { 0x78, 0x9C, 0x62, 0x64, 0x60, 0x4E, 0xCB, 0xCF, 0xAF, 0x07, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0x03, 0x00, 0x04, 0x5F, 0x01, 0xC8 }, data);
+        }
+
+        [TestMethod]
+        public void NbtWriter_ThrowsException_BecauseAutoDetectIsNotValidForWriting() {
+            using MemoryStream memoryStream = new MemoryStream();
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => { using NbtWriter nbtWriter = new NbtWriter(memoryStream, true, NbtCompression.AutoDetect); });
         }
     }
 }
