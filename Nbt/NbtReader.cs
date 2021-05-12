@@ -14,11 +14,6 @@ namespace Nbt {
             BigEndian = bigEndian;
 
             Compression = compression;
-            Stream = Compression switch {
-                NbtCompression.GZip => new GZipStream(Stream, CompressionMode.Decompress, true),
-                NbtCompression.ZLib => new ZLibStream(Stream, CompressionMode.Decompress, true),
-                _ => stream
-            };
         }
 
         public NbtReader(Stream stream, bool bigEndian) : this(stream, NbtCompression.None, bigEndian) { }
@@ -31,7 +26,12 @@ namespace Nbt {
         }
 
         public NbtRoot Read() {
-            using BinaryReader binaryReader = new BinaryReader(Stream, BigEndian);
+            using Stream stream = Compression switch {
+                NbtCompression.GZip => new GZipStream(Stream, CompressionMode.Decompress, true),
+                NbtCompression.ZLib => new ZLibStream(Stream, CompressionMode.Decompress, true),
+                _ => Stream
+            };
+            using BinaryReader binaryReader = new BinaryReader(stream, BigEndian);
             TagType tagType = binaryReader.ReadTagType();
             string rootName = binaryReader.ReadString();
             Tag data = TagFactory.GetEmptyTag(tagType);
