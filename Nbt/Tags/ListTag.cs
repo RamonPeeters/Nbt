@@ -16,7 +16,7 @@ namespace Nbt.Tags {
             return TagType.List;
         }
 
-        public bool Add(Tag tag) {
+        public override bool Add(Tag tag) {
             if (UpdateType(tag)) {
                 Data.Add(tag);
                 return true;

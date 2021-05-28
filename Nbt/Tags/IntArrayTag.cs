@@ -1,32 +1,41 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Nbt.Tags {
     public class IntArrayTag : CollectionTag {
-        private int[] Data;
+        private List<int> Data;
 
-        public override int Count { get { return Data.Length; } }
+        public override int Count { get { return Data.Count; } }
 
         public IntArrayTag() : this(Array.Empty<int>()) {}
 
         public IntArrayTag(int[] data) {
-            Data = data;
+            Data = new List<int>(data);
         }
 
         public override TagType GetTagType() {
             return TagType.IntArray;
         }
 
+        public override bool Add(Tag tag) {
+            if (tag is IntTag intTag) {
+                Data.Add(intTag.Data);
+                return true;
+            }
+            return false;
+        }
+
         internal override void Read(BinaryReader binaryReader) {
             int length = binaryReader.ReadInt();
-            Data = new int[length];
+            Data = new List<int>(length);
             for (int i = 0; i < length; i++) {
-                Data[i] = binaryReader.ReadInt();
+                Data.Add(binaryReader.ReadInt());
             }
         }
 
         internal override void Write(BinaryWriter binaryWriter) {
-            binaryWriter.Write(Data.Length);
-            for (int i = 0; i < Data.Length; i++) {
+            binaryWriter.Write(Data.Count);
+            for (int i = 0; i < Data.Count; i++) {
                 binaryWriter.Write(Data[i]);
             }
         }

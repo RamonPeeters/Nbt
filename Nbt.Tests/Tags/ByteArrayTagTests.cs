@@ -33,5 +33,29 @@ namespace Nbt.Tests.Tags {
             byte[] data = memoryStream.ToArray();
             CollectionAssert.AreEqual(new byte[] { 0x00, 0x00, 0x00, 0x04, 0x00, 0x7F, 0x80, 0xFF }, data);
         }
+
+        [TestMethod]
+        public void ByteArrayTag_AddReturnsTrue() {
+            ByteArrayTag tag = new ByteArrayTag();
+            
+            bool successful = tag.Add(new ByteTag(1));
+            Assert.IsTrue(successful);
+        }
+
+        [TestMethod]
+        public void ByteArrayTag_AddReturnsFalse_BecauseTagTypeIsIncorrect() {
+            ByteArrayTag tag = new ByteArrayTag();
+
+            bool successful = tag.Add(new StringTag("foo"));
+            Assert.IsFalse(successful);
+        }
+
+        [TestMethod]
+        public void ByteArrayTag_AddReturnsFalse_BecauseTagIsNull() {
+            ByteArrayTag tag = new ByteArrayTag();
+
+            bool successful = tag.Add(null);
+            Assert.IsFalse(successful);
+        }
     }
 }

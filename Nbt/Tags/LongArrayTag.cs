@@ -1,32 +1,41 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Nbt.Tags {
     public class LongArrayTag : CollectionTag {
-        private long[] Data;
+        private List<long> Data;
 
-        public override int Count { get { return Data.Length; } }
+        public override int Count { get { return Data.Count; } }
 
         public LongArrayTag() : this(Array.Empty<long>()) {}
 
         public LongArrayTag(long[] data) {
-            Data = data;
+            Data = new List<long>(data);
         }
 
         public override TagType GetTagType() {
             return TagType.LongArray;
         }
 
+        public override bool Add(Tag tag) {
+            if (tag is LongTag longTag) {
+                Data.Add(longTag.Data);
+                return true;
+            }
+            return false;
+        }
+
         internal override void Read(BinaryReader binaryReader) {
             int length = binaryReader.ReadInt();
-            Data = new long[length];
+            Data = new List<long>(length);
             for (int i = 0; i < length; i++) {
-                Data[i] = binaryReader.ReadLong();
+                Data.Add(binaryReader.ReadLong());
             }
         }
 
         internal override void Write(BinaryWriter binaryWriter) {
-            binaryWriter.Write(Data.Length);
-            for (int i = 0; i < Data.Length; i++) {
+            binaryWriter.Write(Data.Count);
+            for (int i = 0; i < Data.Count; i++) {
                 binaryWriter.Write(Data[i]);
             }
         }
