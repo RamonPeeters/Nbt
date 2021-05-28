@@ -17,6 +17,10 @@ namespace Nbt.Tags {
             return TagType.IntArray;
         }
 
+        public override TagType GetElementType() {
+            return TagType.Int;
+        }
+
         public override bool Add(Tag tag) {
             if (tag is IntTag intTag) {
                 Data.Add(intTag.Data);

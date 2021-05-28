@@ -17,6 +17,10 @@ namespace Nbt.Tags {
             return TagType.ByteArray;
         }
 
+        public override TagType GetElementType() {
+            return TagType.Byte;
+        }
+
         public override bool Add(Tag tag) {
             if (tag is ByteTag byteTag) {
                 Data.Add(byteTag.Data);

@@ -16,6 +16,10 @@ namespace Nbt.Tags {
             return TagType.List;
         }
 
+        public override TagType GetElementType() {
+            return Type;
+        }
+
         public override bool Add(Tag tag) {
             if (UpdateType(tag)) {
                 Data.Add(tag);

@@ -17,6 +17,10 @@ namespace Nbt.Tags {
             return TagType.LongArray;
         }
 
+        public override TagType GetElementType() {
+            return TagType.Long;
+        }
+
         public override bool Add(Tag tag) {
             if (tag is LongTag longTag) {
                 Data.Add(longTag.Data);
