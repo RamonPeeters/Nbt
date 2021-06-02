@@ -37,11 +37,20 @@ namespace Nbt.Tests.Tags {
 
         [TestMethod]
         public void ByteTag_WritesCorrectSnbtValue() {
+            StringTag tag = new StringTag("föö!");
+            SnbtWriter snbtWriter = new SnbtWriter();
+
+            tag.WriteSnbt(snbtWriter);
+            Assert.AreEqual("\"föö!\"", snbtWriter.ToString());
+        }
+
+        [TestMethod]
+        public void ByteTag_WritesCorrectSnbtValue_EvenWithSimpleString() {
             StringTag tag = new StringTag("foo");
             SnbtWriter snbtWriter = new SnbtWriter();
 
             tag.WriteSnbt(snbtWriter);
-            Assert.AreEqual("foo", snbtWriter.ToString());
+            Assert.AreEqual("\"foo\"", snbtWriter.ToString());
         }
     }
 }

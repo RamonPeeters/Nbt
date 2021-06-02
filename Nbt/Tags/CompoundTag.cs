@@ -42,7 +42,7 @@ namespace Nbt.Tags {
         public override void WriteSnbt(SnbtWriter snbtWriter) {
             snbtWriter.Write('{');
             foreach (KeyValuePair<string, Tag> pair in Data) {
-                snbtWriter.Write(pair.Key);
+                snbtWriter.Write(pair.Key.QuoteIfRequired());
                 snbtWriter.Write(':');
                 pair.Value.WriteSnbt(snbtWriter);
                 snbtWriter.Write(',');

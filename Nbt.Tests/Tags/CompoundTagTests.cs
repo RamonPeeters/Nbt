@@ -49,5 +49,18 @@ namespace Nbt.Tests.Tags {
             tag.WriteSnbt(snbtWriter);
             Assert.AreEqual("{foo:0b,bar:2147483647,baz:-1L}", snbtWriter.ToString());
         }
+
+        [TestMethod]
+        public void CompoundTag_WritesCorrectSnbtValue_WithComplexKeys() {
+            CompoundTag tag = new CompoundTag(new Dictionary<string, Tag>() {
+                { "föö", new ByteTag(0) },
+                { "bár", new IntTag(2147483647) },
+                { "baž", new LongTag(-1L) }
+            });
+            SnbtWriter snbtWriter = new SnbtWriter();
+
+            tag.WriteSnbt(snbtWriter);
+            Assert.AreEqual("{\"föö\":0b,\"bár\":2147483647,\"baž\":-1L}", snbtWriter.ToString());
+        }
     }
 }

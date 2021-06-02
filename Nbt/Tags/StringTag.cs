@@ -23,7 +23,9 @@ namespace Nbt.Tags {
         }
 
         public override void WriteSnbt(SnbtWriter snbtWriter) {
-            snbtWriter.Write(Data);
+            snbtWriter.Write('"');
+            snbtWriter.Write(Data.Escape('"'));
+            snbtWriter.Write('"');
         }
     }
 }
