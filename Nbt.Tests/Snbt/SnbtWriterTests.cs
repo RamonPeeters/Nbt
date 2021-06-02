@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nbt.Snbt;
+using System.Collections.Generic;
 
 namespace Nbt.Tests.Snbt {
     [TestClass]
@@ -58,6 +59,17 @@ namespace Nbt.Tests.Snbt {
             SnbtWriter snbtWriter = new SnbtWriter();
             snbtWriter.Write("foo");
             Assert.AreEqual("foo", snbtWriter.ToString());
+        }
+
+        [TestMethod]
+        public void SnbtWriter_ShouldWriteCollectionCorrectly() {
+            SnbtWriter snbtWriter = new SnbtWriter();
+            List<int> items = new List<int>() { 1, 2, 3 };
+
+            snbtWriter.Write(items, ",", (writer, value) => {
+                writer.Write(value);
+            });
+            Assert.AreEqual("1,2,3", snbtWriter.ToString());
         }
     }
 }

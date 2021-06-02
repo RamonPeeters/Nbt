@@ -40,14 +40,12 @@ namespace Nbt.Tags {
         }
 
         public override void WriteSnbt(SnbtWriter snbtWriter) {
-            snbtWriter.Write('{');
-            foreach (KeyValuePair<string, Tag> pair in Data) {
-                snbtWriter.Write(pair.Key.QuoteIfRequired());
-                snbtWriter.Write(':');
-                pair.Value.WriteSnbt(snbtWriter);
-                snbtWriter.Write(',');
-            }
-            snbtWriter.Length--;
+            snbtWriter.Write("{");
+            snbtWriter.Write(Data, ",", (writer, pair) => {
+                writer.Write(pair.Key.QuoteIfRequired());
+                writer.Write(':');
+                pair.Value.WriteSnbt(writer);
+            });
             snbtWriter.Write('}');
         }
     }

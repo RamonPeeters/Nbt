@@ -1,4 +1,6 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace Nbt.Snbt {
@@ -49,17 +51,16 @@ namespace Nbt.Snbt {
             Builder.Append(value);
         }
 
-        public override string ToString() {
-            return Builder.ToString();
+        public void Write<T>(IEnumerable<T> enumerable, string separator, Action<SnbtWriter, T> function) {
+            foreach (T t in enumerable) {
+                function(this, t);
+                Write(separator);
+            }
+            Builder.Length -= separator.Length;
         }
 
-        public int Length {
-            get {
-                return Builder.Length;
-            }
-            set {
-                Builder.Length = value;
-            }
+        public override string ToString() {
+            return Builder.ToString();
         }
     }
 }

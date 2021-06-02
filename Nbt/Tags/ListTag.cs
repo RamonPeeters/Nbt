@@ -64,12 +64,10 @@ namespace Nbt.Tags {
         }
 
         public override void WriteSnbt(SnbtWriter snbtWriter) {
-            snbtWriter.Write('[');
-            for (int i = 0; i < Data.Count; i++) {
-                Data[i].WriteSnbt(snbtWriter);
-                snbtWriter.Write(',');
-            }
-            snbtWriter.Length--;
+            snbtWriter.Write("[");
+            snbtWriter.Write(Data, ",", (writer, value) => {
+                value.WriteSnbt(writer);
+            });
             snbtWriter.Write(']');
         }
     }
