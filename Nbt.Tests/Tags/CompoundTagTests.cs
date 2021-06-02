@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Nbt.Snbt;
 using Nbt.Tags;
 using System.Collections.Generic;
 using System.IO;
@@ -34,6 +35,19 @@ namespace Nbt.Tests.Tags {
             tag.Write(binaryWriter);
             byte[] data = memoryStream.ToArray();
             CollectionAssert.AreEqual(new byte[] { 0x01, 0x00, 0x03, 0x66, 0x6F, 0x6F, 0x7F, 0x01, 0x00, 0x03, 0x62, 0x61, 0x72, 0x80, 0x00 }, data);
+        }
+
+        [TestMethod]
+        public void CompoundTag_WritesCorrectSnbtValue() {
+            CompoundTag tag = new CompoundTag(new Dictionary<string, Tag>() {
+                { "foo", new ByteTag(0) },
+                { "bar", new IntTag(2147483647) },
+                { "baz", new LongTag(-1L) }
+            });
+            SnbtWriter snbtWriter = new SnbtWriter();
+
+            tag.WriteSnbt(snbtWriter);
+            Assert.AreEqual("{foo:0b,bar:2147483647,baz:-1L}", snbtWriter.ToString());
         }
     }
 }

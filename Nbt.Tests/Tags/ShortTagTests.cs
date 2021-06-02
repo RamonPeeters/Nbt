@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Nbt.Snbt;
 using Nbt.Tags;
 using System.IO;
 
@@ -32,6 +33,15 @@ namespace Nbt.Tests.Tags {
             tag.Write(binaryWriter);
             byte[] data = memoryStream.ToArray();
             CollectionAssert.AreEqual(new byte[] { 0x80, 0x00 }, data);
+        }
+
+        [TestMethod]
+        public void ShortTag_WritesCorrectSnbtValue() {
+            ShortTag tag = new ShortTag(-32768);
+            SnbtWriter snbtWriter = new SnbtWriter();
+
+            tag.WriteSnbt(snbtWriter);
+            Assert.AreEqual("-32768s", snbtWriter.ToString());
         }
     }
 }

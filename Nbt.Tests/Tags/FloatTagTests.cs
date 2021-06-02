@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Nbt.Snbt;
 using Nbt.Tags;
 using System.IO;
 
@@ -32,6 +33,15 @@ namespace Nbt.Tests.Tags {
             tag.Write(binaryWriter);
             byte[] data = memoryStream.ToArray();
             CollectionAssert.AreEqual(new byte[] { 0xBF, 0xC0, 0x00, 0x00 }, data);
+        }
+
+        [TestMethod]
+        public void FloatTag_WritesCorrectSnbtValue() {
+            FloatTag tag = new FloatTag(-1.5f);
+            SnbtWriter snbtWriter = new SnbtWriter();
+
+            tag.WriteSnbt(snbtWriter);
+            Assert.AreEqual("-1.5f", snbtWriter.ToString());
         }
     }
 }

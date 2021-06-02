@@ -52,5 +52,14 @@ namespace Nbt.Snbt {
         public override string ToString() {
             return Builder.ToString();
         }
+
+        public int Length {
+            get {
+                return Builder.Length;
+            }
+            set {
+                Builder.Length = value;
+            }
+        }
     }
 }

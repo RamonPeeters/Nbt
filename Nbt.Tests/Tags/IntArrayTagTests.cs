@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Nbt.Snbt;
 using Nbt.Tags;
 using System.IO;
 
@@ -56,6 +57,15 @@ namespace Nbt.Tests.Tags {
 
             bool successful = tag.Add(null);
             Assert.IsFalse(successful);
+        }
+
+        [TestMethod]
+        public void IntArrayTag_WritesCorrectSnbtValue() {
+            IntArrayTag tag = new IntArrayTag(new int[] { 0, 2147483647, -2147483648, -1 });
+            SnbtWriter snbtWriter = new SnbtWriter();
+
+            tag.WriteSnbt(snbtWriter);
+            Assert.AreEqual("[I;0,2147483647,-2147483648,-1]", snbtWriter.ToString());
         }
     }
 }

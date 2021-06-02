@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Nbt.Snbt;
+using System.Collections.Generic;
 
 namespace Nbt.Tags {
     public class ListTag : CollectionTag {
@@ -60,6 +61,16 @@ namespace Nbt.Tags {
             for (int i = 0; i < Data.Count; i++) {
                 Data[i].Write(binaryWriter);
             }
+        }
+
+        public override void WriteSnbt(SnbtWriter snbtWriter) {
+            snbtWriter.Write('[');
+            for (int i = 0; i < Data.Count; i++) {
+                Data[i].WriteSnbt(snbtWriter);
+                snbtWriter.Write(',');
+            }
+            snbtWriter.Length--;
+            snbtWriter.Write(']');
         }
     }
 }

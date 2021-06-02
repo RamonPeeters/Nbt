@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Nbt.Snbt;
+using System.Collections.Generic;
 
 namespace Nbt.Tags {
     public class CompoundTag : Tag {
@@ -36,6 +37,18 @@ namespace Nbt.Tags {
                 pair.Value.Write(binaryWriter);
             }
             binaryWriter.Write(TagType.End);
+        }
+
+        public override void WriteSnbt(SnbtWriter snbtWriter) {
+            snbtWriter.Write('{');
+            foreach (KeyValuePair<string, Tag> pair in Data) {
+                snbtWriter.Write(pair.Key);
+                snbtWriter.Write(':');
+                pair.Value.WriteSnbt(snbtWriter);
+                snbtWriter.Write(',');
+            }
+            snbtWriter.Length--;
+            snbtWriter.Write('}');
         }
     }
 }

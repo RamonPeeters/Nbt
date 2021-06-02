@@ -1,4 +1,6 @@
-﻿namespace Nbt.Tags {
+﻿using Nbt.Snbt;
+
+namespace Nbt.Tags {
     public class ShortTag : Tag {
         public short Data { get; private set; }
 
@@ -18,6 +20,10 @@
 
         internal override void Write(BinaryWriter binaryWriter) {
             binaryWriter.Write(Data);
+        }
+
+        public override void WriteSnbt(SnbtWriter snbtWriter) {
+            snbtWriter.Write(Data);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Nbt.Snbt;
 using Nbt.Tags;
 using System.IO;
 
@@ -59,6 +60,17 @@ namespace Nbt.Tests.Tags {
 
             bool successful = tag.Add(null);
             Assert.IsFalse(successful);
+        }
+
+        [TestMethod]
+        public void ListTag_WritesCorrectSnbtValue() {
+            ListTag tag = new ListTag();
+            tag.Add(new ByteTag(127));
+            tag.Add(new ByteTag(-128));
+            SnbtWriter snbtWriter = new SnbtWriter();
+
+            tag.WriteSnbt(snbtWriter);
+            Assert.AreEqual("[127b,-128b]", snbtWriter.ToString());
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Nbt.Snbt;
 using Nbt.Tags;
 using System.IO;
 
@@ -56,6 +57,15 @@ namespace Nbt.Tests.Tags {
 
             bool successful = tag.Add(null);
             Assert.IsFalse(successful);
+        }
+
+        [TestMethod]
+        public void LongArrayTag_WritesCorrectSnbtValue() {
+            LongArrayTag tag = new LongArrayTag(new long[] { 0, 9223372036854775807, -9223372036854775808, -1 });
+            SnbtWriter snbtWriter = new SnbtWriter();
+
+            tag.WriteSnbt(snbtWriter);
+            Assert.AreEqual("[L;0L,9223372036854775807L,-9223372036854775808L,-1L]", snbtWriter.ToString());
         }
     }
 }
